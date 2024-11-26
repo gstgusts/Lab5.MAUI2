@@ -1,5 +1,6 @@
 ﻿using Lab5.MAUIData.Interfaces;
 using Lab5.MAUIData.Services;
+using MauiApp2.ViewModels;
 using Microsoft.Extensions.Logging;
 
 namespace MauiApp2
@@ -19,6 +20,9 @@ namespace MauiApp2
 
             builder.Services.AddScoped<IStudentApiClient, StudentApiClient>();
             builder.Services.AddScoped<IApiDataRepository, ApiDataRepository>();
+
+            builder.Services.AddSingleton<MainPageViewModel>();
+            builder.Services.AddSingleton<MainPage>();
 
 #if DEBUG
             builder.Logging.AddDebug();

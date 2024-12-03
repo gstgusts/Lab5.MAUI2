@@ -8,6 +8,7 @@ namespace Lab5.MAUIData.Services
 {
     public class StudentApiConstants
     {
-        public const string StudentsUrl = "api/Student";
+        public const string StudentsUrl = "api/Students";
+        public const string GradesUrl = "Grades";
     }
 }

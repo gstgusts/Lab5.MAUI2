@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiApp2.GradesPage"
+             Title="Grades">
+    <VerticalStackLayout>
+        <Label 
+            Text="{Binding Student.Name}"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+        <ListView ItemsSource="{Binding Grades}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Orientation="Horizontal" Spacing="10" Margin="10">
+                            <Label Text="{Binding Subject}" />
+                            <Label Text="{Binding Value}" />
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </VerticalStackLayout>
+</ContentPage>

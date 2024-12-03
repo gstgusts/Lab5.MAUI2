@@ -13,16 +13,27 @@ namespace MauiApp2.ViewModels
 {
     public class MainPageViewModel : ViewModelBase
     {
-        private readonly IApiDataRepository _apiDataRepository;
+        private readonly IDataRepository _dataRepository;
 
-        public MainPageViewModel(IApiDataRepository apiDataRepository)
+        public MainPageViewModel(IDataRepository dataRepository)
         {
             Title = "Loading ...";
-            _apiDataRepository = apiDataRepository;
+            _dataRepository = dataRepository;
 
             LoadCommand = new RelayCommand(LoadData);
+            SelectStudentCommand = new RelayCommand(ShowDetails);
 
             LoadData();
+        }
+
+        public async void ShowDetails()
+        {
+            var navigationParameter = new ShellNavigationQueryParameters
+            {
+                { "Student", SelectedStudent }
+            };
+
+            await Shell.Current.GoToAsync("//GradesPage", navigationParameter);
         }
 
         private string _title;
@@ -55,12 +66,29 @@ namespace MauiApp2.ViewModels
             }
         }
 
+        private Student _selectedStudent;
+        public Student SelectedStudent
+        {
+            get
+            {
+                return _selectedStudent;
+            }
+            set
+            {
+                _selectedStudent = value;
+                OnPropertyChanged();
+            }
+        }
+
         public ICommand LoadCommand { get; }
+
+        public ICommand SelectStudentCommand { get; }
 
         public async void LoadData()
         {
             Title = "Loading ...";
-            var data = await _apiDataRepository.GetStudentsAsync();
+
+            var data = await _dataRepository.GetStudentsAsync();
             Students = data;
             Title = "Number of students: " + data.Length;
         }

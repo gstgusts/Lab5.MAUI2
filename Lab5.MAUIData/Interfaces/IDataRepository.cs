@@ -7,8 +7,10 @@ using Lab5.MAUIData.Models;
 
 namespace Lab5.MAUIData.Interfaces
 {
-    public interface IApiDataRepository
+    public interface IDataRepository
     {
         Task<Student[]> GetStudentsAsync();
+
+        Task<Grade[]> GetStudentGradesAsync(int studentId);
     }
 }

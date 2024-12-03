@@ -8,13 +8,20 @@ using Lab5.MAUIData.Models;
 
 namespace Lab5.MAUIData.Services
 {
-    public class ApiDataRepository : IApiDataRepository
+    public class ApiDataRepository : IDataRepository
     {
         private readonly IStudentApiClient _studentApiClient;
 
         public ApiDataRepository(IStudentApiClient apiClient)
         {
             _studentApiClient = apiClient;
+        }
+
+        public async Task<Grade[]> GetStudentGradesAsync(int studentId)
+        {
+            var result = await _studentApiClient
+                .GetItemsAsync<Grade>($"{StudentApiConstants.StudentsUrl}/{studentId}/{StudentApiConstants.GradesUrl}");
+            return result;
         }
 
         public async Task<Student[]> GetStudentsAsync()

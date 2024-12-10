@@ -9,5 +9,9 @@ namespace Lab5.MAUIData.Interfaces
     public interface IStudentApiClient
     {
         Task<T[]> GetItemsAsync<T>(string url) where T:class;
+
+        Task DeleteItemAsync(string url);
+
+        Task UpdateItem<T>(string url, T entity) where T : class;
     }
 }

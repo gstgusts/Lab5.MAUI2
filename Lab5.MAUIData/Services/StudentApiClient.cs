@@ -33,5 +33,26 @@ namespace Lab5.MAUIData.Services
 
             return items;
         }
+
+        public async Task DeleteItemAsync(string url)
+        {
+            var request = new HttpRequestMessage(HttpMethod.Delete, $"{BaseAddress}/{url}");
+            var response = await _httpClient.SendAsync(request);
+
+            response.EnsureSuccessStatusCode();
+        }
+
+        public async Task UpdateItem<T>(string url, T entity) where T : class
+        {
+            var request = new HttpRequestMessage(HttpMethod.Put, $"{BaseAddress}/{url}");
+
+            var content = new StringContent(JsonConvert.SerializeObject(entity), null, "application/json");
+           
+            request.Content = content;
+
+            var response = await _httpClient.SendAsync(request);
+
+            response.EnsureSuccessStatusCode();
+        }
     }
 }

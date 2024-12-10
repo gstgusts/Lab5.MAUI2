@@ -12,5 +12,8 @@ namespace Lab5.MAUIData.Interfaces
         Task<Student[]> GetStudentsAsync();
 
         Task<Grade[]> GetStudentGradesAsync(int studentId);
+
+        Task DeleteGrade(int studentId, int gradeId);
+        Task UpdateStudentAsync(Student student);
     }
 }

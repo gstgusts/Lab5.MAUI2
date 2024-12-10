@@ -17,6 +17,12 @@ namespace Lab5.MAUIData.Services
             _studentApiClient = apiClient;
         }
 
+        public async Task DeleteGrade(int studentId, int gradeId)
+        {
+            await _studentApiClient
+                .DeleteItemAsync($"{StudentApiConstants.StudentsUrl}/{studentId}/{StudentApiConstants.GradesUrl}/{gradeId}");
+        }
+
         public async Task<Grade[]> GetStudentGradesAsync(int studentId)
         {
             var result = await _studentApiClient
@@ -28,6 +34,11 @@ namespace Lab5.MAUIData.Services
         {
            var result =  await _studentApiClient.GetItemsAsync<Student>(StudentApiConstants.StudentsUrl);
            return result;
+        }
+
+        public async Task UpdateStudentAsync(Student student)
+        {
+            await _studentApiClient.UpdateItem<Student>($"{StudentApiConstants.StudentsUrl}/{student.Id}", student);
         }
     }
 }

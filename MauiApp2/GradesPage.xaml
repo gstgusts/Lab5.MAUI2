@@ -1,14 +1,92 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="MauiApp2.GradesPage"
              Title="Grades">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <toolkit:SelectedItemEventArgsConverter x:Key="SelectedItemEventArgsConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
     <VerticalStackLayout>
-        <Label 
-            Text="{Binding Student.Name}"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-        <ListView ItemsSource="{Binding Grades}">
+        <StackLayout IsVisible="{Binding IsReadOnly}">
+            <Label 
+                Text="{Binding Student.Code}"
+                VerticalOptions="Center" 
+                HorizontalOptions="Center" />
+
+            <Label 
+                Text="{Binding Student.Name}"
+                VerticalOptions="Center" 
+                HorizontalOptions="Center" />
+
+            <Label 
+                Text="{Binding Student.Surname}"
+                VerticalOptions="Center" 
+                HorizontalOptions="Center" />
+        </StackLayout>
+
+        <StackLayout IsVisible="{Binding IsEditEnabled}">
+            <Label 
+                Text="Code"
+                VerticalOptions="Center" 
+                HorizontalOptions="Center" />
+
+            <StackLayout Orientation="Horizontal">
+                <Entry Text="{Binding Student.Code, Mode=TwoWay}"/>
+                <BoxView BackgroundColor="Red" WidthRequest="10" HeightRequest="10" IsVisible="{Binding IsCodeInValid}" />
+            </StackLayout>
+            
+
+            <Label 
+                Text="Name"
+                VerticalOptions="Center" 
+                HorizontalOptions="Center" />
+
+            <StackLayout Orientation="Horizontal">
+                <Entry Text="{Binding Student.Name, Mode=TwoWay}" />
+                <BoxView BackgroundColor="Red" WidthRequest="10" HeightRequest="10" IsVisible="{Binding IsNameInValid}" />
+            </StackLayout>
+
+            <Label 
+                Text="Surname"
+                VerticalOptions="Center" 
+                HorizontalOptions="Center" />
+
+            <StackLayout Orientation="Horizontal">
+                <Entry Text="{Binding Student.Surname, Mode=TwoWay}" />
+                <BoxView BackgroundColor="Red" WidthRequest="10" HeightRequest="10" IsVisible="{Binding IsSurnameInValid}" />
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal">
+                <Button Text="Ok" Command="{Binding UpdateConfirmCommand}"></Button>
+                <Button Text="Cancel" Command="{Binding UpdateCancelCommand}"></Button>
+            </StackLayout>
+        </StackLayout>
+
+        <Button Text="Edit" Command="{Binding EditStudentCommand}" IsVisible="{Binding IsReadOnly}" Margin="5"></Button>
+
+        <StackLayout BackgroundColor="red" IsVisible="{Binding IsDeleteConfirmationVisible}">
+            <Label Text="Do you want to delete grade?" />
+            <StackLayout Orientation="Horizontal">
+                <Button Text="Ok" Command="{Binding DeleteConfirmCommand}"></Button>
+                <Button Text="Cancel" Command="{Binding DeleteCancelCommand}"></Button>
+            </StackLayout>
+        </StackLayout>
+
+        <Button x:Name="DeleteBtn"
+                Text="Delete"
+                HorizontalOptions="Fill"
+                TextColor="White"
+                Command="{Binding DeleteCommand}"
+                IsEnabled="{Binding IsDeleteEnabled}"
+                Margin="5"
+                ></Button>
+        <ListView ItemsSource="{Binding Grades}"
+                  SelectedItem="{Binding SelectedGrade}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
@@ -19,6 +97,12 @@
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
+            <ListView.Behaviors>
+                <toolkit:EventToCommandBehavior
+                    EventName="ItemSelected"
+                    Command="{Binding SelectGradeCommand}"
+                    EventArgsConverter="{StaticResource SelectedItemEventArgsConverter}" />
+            </ListView.Behaviors>
         </ListView>
     </VerticalStackLayout>
 </ContentPage>

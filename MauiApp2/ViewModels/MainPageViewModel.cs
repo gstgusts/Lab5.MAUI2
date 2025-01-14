@@ -26,6 +26,11 @@ namespace MauiApp2.ViewModels
             LoadData();
         }
 
+        public MainPageViewModel()
+        {
+            
+        }
+
         public async void ShowDetails()
         {
             var navigationParameter = new ShellNavigationQueryParameters

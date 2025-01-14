@@ -1,4 +1,3 @@
-using AndroidX.Lifecycle;
 using Lab5.MAUIData.Interfaces;
 using Lab5.MAUIData.Models;
 using Lab5.MAUIData.Services;

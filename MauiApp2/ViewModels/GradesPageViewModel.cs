@@ -7,7 +7,6 @@ using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
 using Lab5.MAUIData.Interfaces;
 using Lab5.MAUIData.Models;
-using static Android.Icu.Text.CaseMap;
 
 namespace MauiApp2.ViewModels
 {
@@ -15,6 +14,10 @@ namespace MauiApp2.ViewModels
     {
         private readonly IDataRepository _dataRepository;
 
+        public GradesPageViewModel()
+        {
+            
+        }
         public GradesPageViewModel(IDataRepository dataRepository)
         {
             _dataRepository = dataRepository;
